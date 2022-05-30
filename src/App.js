@@ -1,6 +1,13 @@
+import React,{useState} from 'react'
 import Die from './components/Die'
 
 export default function App(){
+
+    const [allNumber, setAllNumbers] = useState(allNewDice())
+
+    const diceElements = allNumber.map(function(number, i){
+        return <Die key={i} value={number}/>
+    })
 
     function allNewDice(){
 
@@ -22,17 +29,9 @@ export default function App(){
                 </p>
             </div>
             <div className="dieGame">
-                <Die value={1}/>
-                <Die value={1}/>
-                <Die value={1}/>
-                <Die value={1}/>
-                <Die value={1}/>
-                <Die value={1}/>
-                <Die value={1}/>
-                <Die value={1}/>
-                <Die value={1}/>
-                <Die value={1}/>                
+                {diceElements}               
             </div>       
+            <button className="rollButton">Roll</button>
         </main>
     )
 }
