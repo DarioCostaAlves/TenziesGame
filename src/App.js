@@ -1,4 +1,17 @@
+import Die from './components/Die'
+
 export default function App(){
+
+    function allNewDice(){
+
+        const newDice = []
+        
+        for(let i = 0; i < 10; i++){
+            newDice.push(Math.ceil(Math.random() * 6))
+        }
+        return newDice
+    }
+    console.log(allNewDice())
     return(
         <main className="mainSquare">
             <div className="instructionsSquare">
@@ -8,9 +21,18 @@ export default function App(){
                     Click each die to freeze it at its current value between rolls. 
                 </p>
             </div>
-            <div className="mainSquareGame">
-                
-            </div>
+            <div className="dieGame">
+                <Die value={1}/>
+                <Die value={1}/>
+                <Die value={1}/>
+                <Die value={1}/>
+                <Die value={1}/>
+                <Die value={1}/>
+                <Die value={1}/>
+                <Die value={1}/>
+                <Die value={1}/>
+                <Die value={1}/>                
+            </div>       
         </main>
     )
 }
