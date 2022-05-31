@@ -18,6 +18,10 @@ export default function App(){
         }
         return newDice
     }
+
+    function rollDice(){
+        setAllNumbers(allNewDice())
+    }
     console.log(allNewDice())
     return(
         <main className="mainSquare">
@@ -31,7 +35,7 @@ export default function App(){
             <div className="dieGame">
                 {diceElements}               
             </div>       
-            <button className="rollButton">Roll</button>
+            <button onClick={() => rollDice()} className="rollButton">Roll</button>
         </main>
     )
 }

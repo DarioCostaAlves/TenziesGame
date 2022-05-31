@@ -1,5 +1,5 @@
 body{
-    background-color: #0B2434;
+    background-color: #46384a;
     margin: 0;
 }
 
@@ -46,8 +46,8 @@ body{
 
 .dieGameCard{
     display: inline-block;
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 32px;
     background-color: #FFFFFF;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     margin: 10px 15px;
@@ -57,3 +57,28 @@ body{
     font-weight: bold;
     border-radius: 5px;
 }
+
+.rollButton{
+    margin-top: 40px;
+    width: 200px;
+    height:90px;
+    background-color:#8f3ca6;
+    color: #FFFFFF;
+    font-family: 'Karla', sans-serif;
+    font-size: 2.5em;    
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.rollButton:hover{
+    background-color: #bf53dd;
+}
+.dieGameCard:hover{
+    background-color: #bf53dd;
+    box-shadow: 1px 2px 3px 4px rgba(20,20,20,0.4);
+    cursor: pointer;
+}
+
+
