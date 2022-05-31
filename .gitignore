@@ -10,6 +10,5 @@ logs
 
 node_modules
 bower_components
-build
 
 # End of https://www.toptal.com/developers/gitignore/api/react

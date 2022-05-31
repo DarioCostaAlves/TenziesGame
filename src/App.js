@@ -1,12 +1,13 @@
 import React,{useState} from 'react'
 import Die from './components/Die'
+import {nanoid} from "nanoid"
 
 export default function App(){
 
     const [allNumber, setAllNumbers] = useState(allNewDice())
 
-    const diceElements = allNumber.map(function(number, i){
-        return <Die key={i} value={number}/>
+    const diceElements = allNumber.map(function(dice, i){
+        return <Die key={dice.id} value={dice.value}/>
     })
 
     function allNewDice(){
@@ -14,8 +15,13 @@ export default function App(){
         const newDice = []
         
         for(let i = 0; i < 10; i++){
-            newDice.push(Math.ceil(Math.random() * 6))
+            newDice.push({
+                value: Math.ceil(Math.random() * 6),
+                isHeld: false,
+                id: nanoid()
+            })
         }
+        console.log(newDice)
         return newDice
     }
 
