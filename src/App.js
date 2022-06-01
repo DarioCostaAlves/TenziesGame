@@ -7,7 +7,7 @@ export default function App(){
     const [allNumber, setAllNumbers] = useState(allNewDice())
 
     const diceElements = allNumber.map(function(dice, i){
-        return <Die key={dice.id} value={dice.value}/>
+        return <Die key={dice.id} value={dice.value} holdDice={() => holdDice(dice.id)}/>
     })
 
     function allNewDice(){
@@ -28,7 +28,11 @@ export default function App(){
     function rollDice(){
         setAllNumbers(allNewDice())
     }
-    console.log(allNewDice())
+    // console.log(allNewDice())
+    function holdDice(id){
+        console.log(id)
+    }
+
     return(
         <main className="mainSquare">
             <div className="instructionsSquare">
