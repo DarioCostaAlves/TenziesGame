@@ -4,10 +4,12 @@ import {nanoid} from "nanoid"
 
 export default function App(){
 
-    const [allNumber, setAllNumbers] = useState(allNewDice())
+    const [dice, setDice] = useState(allNewDice())
 
-    const diceElements = allNumber.map(function(dice, i){
-        return <Die key={dice.id} value={dice.value} holdDice={() => holdDice(dice.id)}/>
+    const diceElements = dice.map(function(dice, i){
+        return <Die key={dice.id} value={dice.value} 
+        holdDice={() => holdDice(dice.id)}
+        />
     })
 
     function allNewDice(){
@@ -26,11 +28,15 @@ export default function App(){
     }
 
     function rollDice(){
-        setAllNumbers(allNewDice())
+        setDice(allNewDice())
     }
     // console.log(allNewDice())
     function holdDice(id){
         console.log(id)
+        setDice(oldDice => oldDice.map(die => {
+            return die.id === id ? {...die, isHeld: !die.isHeld} : die
+        }))
+
     }
 
     return(
