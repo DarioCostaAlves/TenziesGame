@@ -76,7 +76,7 @@ body{
     background-color: #bf53dd;
 }
 .dieGameCard:hover{
-    background-color: #bf53dd;
+    background-color: #bf53dd65;
     box-shadow: 1px 2px 3px 4px rgba(20,20,20,0.4);
     cursor: pointer;
 }
@@ -94,5 +94,6 @@ body{
     font-size: 2rem;
     font-weight: bold;
     border-radius: 5px;
+    cursor: pointer;
 }
 
