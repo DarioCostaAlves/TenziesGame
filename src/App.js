@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from 'react'
 import Die from './components/Die'
 import {nanoid} from "nanoid"
+import Confetti from 'react-confetti'
 
 export default function App(){
 
@@ -57,10 +58,11 @@ export default function App(){
             return die.id === id ? {...die, isHeld: !die.isHeld} : die
         }))
 
-    }
+    }    
 
     return(
         <main className="mainSquare">
+            {tenzies && <Confetti/>}
             <div className="instructionsSquare">
                 <h1 className="titleSquare">Tenzies</h1>
                 <p className="descriptionSquare">
@@ -71,7 +73,9 @@ export default function App(){
             <div className="dieGame">
                 {diceElements}               
             </div>       
-            <button onClick={() => rollDice()} className="rollButton">Roll</button>
+            <button onClick={() => rollDice()} className="rollButton">
+                {tenzies ? "New Game" : "Roll"}
+            </button>
         </main>
     )
 }
