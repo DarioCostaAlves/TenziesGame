@@ -1,10 +1,22 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import Die from './components/Die'
 import {nanoid} from "nanoid"
 
 export default function App(){
 
     const [dice, setDice] = useState(allNewDice())
+    const [tenzies, setTenzies] = useState(false)
+
+    useEffect(() =>{
+        const allDiceHeld = dice.every(item => item.isHeld)
+        const allEqual = dice.every( item => item.value === dice[0].value )
+
+        if(allEqual && allDiceHeld){
+            setTenzies(true)
+            console.log("You won!")
+        }        
+
+    }, [dice])
 
     const diceElements = dice.map(die => (
         <Die
@@ -40,7 +52,7 @@ export default function App(){
     }
     // console.log(allNewDice())
     function holdDice(id){
-        console.log(id)
+        // console.log(id)
         setDice(oldDice => oldDice.map(die => {
             return die.id === id ? {...die, isHeld: !die.isHeld} : die
         }))
