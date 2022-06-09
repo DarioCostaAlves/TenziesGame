@@ -2,8 +2,14 @@ import React,{useState, useEffect} from 'react'
 import Die from './components/Die'
 import {nanoid} from "nanoid"
 import Confetti from 'react-confetti'
+import {
+    useWindowSize,    
+  } from '@react-hook/window-size'
 
 export default function App(){
+
+    //Get window size
+    const [width, height] = useWindowSize()
 
     const [dice, setDice] = useState(allNewDice())
     const [tenzies, setTenzies] = useState(false)
@@ -58,24 +64,33 @@ export default function App(){
             return die.id === id ? {...die, isHeld: !die.isHeld} : die
         }))
 
-    }    
+    }        
 
     return(
-        <main className="mainSquare">
-            {tenzies && <Confetti/>}
-            <div className="instructionsSquare">
-                <h1 className="titleSquare">Tenzies</h1>
-                <p className="descriptionSquare">
-                    Roll until all dice are the same. 
-                    Click each die to freeze it at its current value between rolls. 
-                </p>
-            </div>
-            <div className="dieGame">
-                {diceElements}               
-            </div>       
-            <button onClick={() => rollDice()} className="rollButton">
-                {tenzies ? "New Game" : "Roll"}
-            </button>
-        </main>
+
+        <>
+            {tenzies && 
+                <Confetti
+                width={width}
+                height={height}
+                />
+            }
+            <main className="mainSquare">
+                <div className="instructionsSquare">
+                    <h1 className="titleSquare">Tenzies</h1>
+                    <p className="descriptionSquare">
+                        Roll until all dice are the same. 
+                        Click each die to freeze it at its current value between rolls. 
+                    </p>
+                </div>
+                <div className="dieGame">
+                    {diceElements}               
+                </div>       
+                <button onClick={() => rollDice()} className="rollButton">
+                    {tenzies ? "New Game" : "Roll"}
+                </button>
+            </main>
+        </>
+
     )
 }
