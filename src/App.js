@@ -1,5 +1,6 @@
 import React,{useState, useEffect} from 'react'
 import Die from './components/Die'
+import Countdown from './components/Countdown'
 import {nanoid} from "nanoid"
 import Confetti from 'react-confetti'
 import {
@@ -36,7 +37,7 @@ export default function App(){
 
     function generateNewDie(){
         return {
-            value: Math.ceil(Math.random() * 6),
+            value: Math.ceil(Math.random() * 9),
             isHeld: false,
             id: nanoid()
         }
@@ -96,6 +97,7 @@ export default function App(){
                 <button onClick={() => rollDice()} className="rollButton">
                     {tenzies ? "New Game" : "Roll"}
                 </button>
+                <Countdown />
             </main>
         </>
 
