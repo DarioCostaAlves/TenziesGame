@@ -1,30 +1,49 @@
 import React,{useState, useEffect} from 'react'
 import Die from './components/Die'
-import Countdown from './components/Countdown'
 import {nanoid} from "nanoid"
 import Confetti from 'react-confetti'
 import {
     useWindowSize,    
   } from '@react-hook/window-size'
 
-export default function App(){
+export default function App(props){
 
     //Get window size
     const [width, height] = useWindowSize()
 
     const [dice, setDice] = useState(allNewDice())
-    const [tenzies, setTenzies] = useState(false)
+    const [tenzies, setTenzies] = useState(false)    
+    //Start of the game time in milliseconds sine 1970 00:00:00 UTC
+
+
+    const startTenzies = Date.now(); 
+
+    function tenziesDuration(){
+       
+        const endTenzies = Date.now()
+        let timeDif = endTenzies - startTenzies
+        timeDif/=1000
+        const seconds = Math.round(timeDif);
+        console.log(seconds + " seconds");       
+    }
 
     useEffect(() =>{
         const allDiceHeld = dice.every(item => item.isHeld)
-        const allEqual = dice.every( item => item.value === dice[0].value )
+        const allEqual = dice.every( item => item.value === dice[0].value )     
+                 
 
-        if(allEqual && allDiceHeld){
+        if(allEqual && allDiceHeld){       
+            tenziesDuration()          
             setTenzies(true)
             console.log("You won!")
-        }        
+        }                
+
+       
+
+        
 
     }, [dice])
+
 
     const diceElements = dice.map(die => (
         <Die
@@ -37,7 +56,7 @@ export default function App(){
 
     function generateNewDie(){
         return {
-            value: Math.ceil(Math.random() * 9),
+            value: Math.ceil(Math.random() * 2),
             isHeld: false,
             id: nanoid()
         }
@@ -89,6 +108,7 @@ export default function App(){
                     <p className="descriptionSquare">
                         Roll until all dice are the same. 
                         Click each die to freeze it at its current value between rolls. 
+                        <b>You have only 30 secons! Let's go!</b>
                     </p>
                 </div>
                 <div className="dieGame">
@@ -97,9 +117,7 @@ export default function App(){
                 <button onClick={() => rollDice()} className="rollButton">
                     {tenzies ? "New Game" : "Roll"}
                 </button>
-                <Countdown />
             </main>
         </>
-
     )
 }
