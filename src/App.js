@@ -63,7 +63,7 @@ export default function App(props){
 
     function generateNewDie(){
         return {
-            value: Math.ceil(Math.random() * 2),
+            value: Math.ceil(Math.random() * 9),
             isHeld: false,
             id: nanoid()
         }
