@@ -1,5 +1,7 @@
 import React,{useState, useEffect} from 'react'
 import Die from './components/Die'
+import Timer from './components/Count'
+import Results from './components/Results'
 import {nanoid} from "nanoid"
 import Confetti from 'react-confetti'
 import {
@@ -13,36 +15,41 @@ export default function App(props){
 
     const [dice, setDice] = useState(allNewDice())
     const [tenzies, setTenzies] = useState(false)    
-    //Start of the game time in milliseconds sine 1970 00:00:00 UTC
+    
+    const [hasStarted, setHasStarted] = useState(() => false)
+    const[time, setTime] = useState(0)
 
+    const [bestTime, setBestTime] = useState(() =>
+    localStorage.getItem("best-time")
+        ? parseInt(localStorage.getItem("best-time"))
+        : ""
+    );
 
-    const startTenzies = Date.now(); 
+    useEffect(() =>{
+        let interval = null
 
-    function tenziesDuration(){
-       
-        const endTenzies = Date.now()
-        let timeDif = endTenzies - startTenzies
-        timeDif/=1000
-        const seconds = Math.round(timeDif);
-        console.log(seconds + " seconds");       
-    }
+        if(hasStarted && !tenzies){
+            interval = setInterval(() => {
+                setTime((prevTime) => prevTime + 10);
+            }, 10);
+        }
+        return () => clearInterval(interval);
+    }, [tenzies, hasStarted])
 
     useEffect(() =>{
         const allDiceHeld = dice.every(item => item.isHeld)
-        const allEqual = dice.every( item => item.value === dice[0].value )     
-                 
+        const allEqual = dice.every( item => item.value === dice[0].value )                             
 
-        if(allEqual && allDiceHeld){       
-            tenziesDuration()          
+        if(allEqual && allDiceHeld){                   
             setTenzies(true)
             console.log("You won!")
-        }                
+            if (time < bestTime || !bestTime) {
+                setBestTime(time);
+                localStorage.setItem("best-time", time.toString());
+            }
+        }                               
 
-       
-
-        
-
-    }, [dice])
+    }, [dice, time])
 
 
     const diceElements = dice.map(die => (
@@ -72,13 +79,16 @@ export default function App(props){
         return newDice
     }
 
-    function rollDice(){
+    function rollDice(){        
         if (!tenzies){
+            setHasStarted(true)
             setDice(oldDice => oldDice.map(die => {
                 return die.isHeld ? die : generateNewDie()
             }))
         }
         else{
+            setHasStarted(false)
+            setTime(0)
             setTenzies(false)
             setDice(allNewDice())
         }
@@ -86,6 +96,7 @@ export default function App(props){
     }
     // console.log(allNewDice())
     function holdDice(id){
+        setHasStarted(true)
         // console.log(id)
         setDice(oldDice => oldDice.map(die => {
             return die.id === id ? {...die, isHeld: !die.isHeld} : die
@@ -107,16 +118,19 @@ export default function App(props){
                     <h1 className="titleSquare">Tenzies</h1>
                     <p className="descriptionSquare">
                         Roll until all dice are the same. 
-                        Click each die to freeze it at its current value between rolls. 
-                        <b>You have only 30 secons! Let's go!</b>
+                        Click each die to freeze it at its current value between rolls.                         
                     </p>
                 </div>
+                <div className="tenziesTime">
+                    <Timer time={time}/>
+                </div>                
                 <div className="dieGame">
                     {diceElements}               
                 </div>       
                 <button onClick={() => rollDice()} className="rollButton">
                     {tenzies ? "New Game" : "Roll"}
-                </button>
+                </button>                
+                <Results time={bestTime}/>
             </main>
         </>
     )

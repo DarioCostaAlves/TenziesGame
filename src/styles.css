@@ -60,12 +60,12 @@ body{
 
 .rollButton{
     margin-top: 40px;
-    width: 200px;
-    height:90px;
+    width: 160px;
+    height:60px;
     background-color:#8f3ca6;
     color: #FFFFFF;
     font-family: 'Karla', sans-serif;
-    font-size: 2.5em;    
+    font-size: 2.0em;    
     font-weight: bold;
     border: none;
     border-radius: 5px;
@@ -96,4 +96,10 @@ body{
     border-radius: 5px;
     cursor: pointer;
 }
+.tenziesTime{
+    margin-top: 10px;
+}
 
+.best-time{
+    margin-top: 10px;
+}
