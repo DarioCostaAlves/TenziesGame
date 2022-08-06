@@ -1,6 +1,6 @@
 # TenziesGame W/ ReactJS
 Tenzies Game with personal record of time.
-[Let's play!](http://localhost:3000/TenziesGame)
+[Let's play!](https://dariocostaalves.github.io/TenziesGame/)
 
 ## Technologies
 
